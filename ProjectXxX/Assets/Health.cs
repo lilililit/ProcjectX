@@ -1,48 +1,43 @@
+using System;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 100; // Maksymalna iloœæ ¿ycia
-    private int currentHealth; // Aktualna iloœæ ¿ycia
+    public event Action OnHealthChanged; // Zdarzenie informuj¹ce o zmianie ¿ycia
+
+    [SerializeField] private float maxHealth = 100f; // Maksymalne zdrowie
+    public float CurrentHealth { get; private set; } // Aktualne zdrowie
+    public float MaxHealth => maxHealth;             // Maksymalne zdrowie (tylko do odczytu)
 
     private void Start()
     {
-        // Ustaw pocz¹tkowe ¿ycie na maksymalne
-        currentHealth = maxHealth;
-    }
+        CurrentHealth = maxHealth; // Ustaw pe³ne zdrowie na start
 
-    /// <summary>
-    /// Zmniejsza ¿ycie o podan¹ wartoœæ.
-    /// </summary>
-    /// <param name="damage">Iloœæ obra¿eñ</param>
-    public void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-        Debug.Log($"{gameObject.name} ma teraz {currentHealth} punktów ¿ycia.");
-
-        // SprawdŸ, czy ¿ycie jest równe zero lub mniej
-        if (currentHealth <= 0)
+        // Automatyczna inicjalizacja paska zdrowia
+        HealthBar healthBar = GetComponentInChildren<HealthBar>();
+        if (healthBar != null)
         {
-            Die();
+            healthBar.Initialize(this); // Powi¹¿ pasek zdrowia z tym systemem ¿ycia
         }
     }
 
-    /// <summary>
-    /// Zwiêksza ¿ycie o podan¹ wartoœæ, nie przekraczaj¹c maksymalnego.
-    /// </summary>
-    /// <param name="healing">Iloœæ leczenia</param>
-    public void Heal(int healing)
+    public void TakeDamage(float amount)
     {
-        currentHealth = Mathf.Min(currentHealth + healing, maxHealth);
-        Debug.Log($"{gameObject.name} zosta³ wyleczony do {currentHealth} punktów ¿ycia.");
+        CurrentHealth -= amount;
+        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, maxHealth); // Ogranicz zakres ¿ycia
+        OnHealthChanged?.Invoke(); // Wywo³aj zdarzenie zmiany ¿ycia
+
+        if (CurrentHealth <= 0)
+        {
+            Destroy(gameObject); // Usuñ obiekt, gdy ¿ycie osi¹gnie zero
+        }
     }
 
-    /// <summary>
-    /// Usuwa obiekt, gdy ¿ycie spadnie do zera.
-    /// </summary>
-    private void Die()
+    public void Heal(float amount)
     {
-        Debug.Log($"{gameObject.name} zosta³ zniszczony.");
-        Destroy(gameObject);
+        CurrentHealth += amount;
+        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, maxHealth); // Ogranicz zakres ¿ycia
+        OnHealthChanged?.Invoke(); // Wywo³aj zdarzenie zmiany ¿ycia
     }
 }
+
