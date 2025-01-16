@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class HitscanShooter : MonoBehaviour
 {
-    public GameObject projectilePrefab; // Assign your projectile prefab in the inspector
-    public Transform firePoint;         // The position the projectile spawns from
-    public LayerMask hitLayers;         // Layers to detect collision
-    public Camera playerCamera;         // Assign the player's camera in the inspector
-    public float projectileSpeed = 50f; // Speed of the projectile
+    public GameObject projectilePrefab; // Prefab pocisku
+    public Transform firePoint;         // Pozycja, z której strzelasz
+    public LayerMask hitLayers;         // Warstwy do wykrywania kolizji
+    public Camera playerCamera;         // Kamera gracza
+    public float projectileSpeed = 50f; // Prêdkoœæ pocisku
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1")) // Left mouse button by default
+        if (Input.GetButtonDown("Fire1")) // Domyœlnie lewy przycisk myszy
         {
             Shoot();
         }
@@ -18,35 +18,39 @@ public class HitscanShooter : MonoBehaviour
 
     void Shoot()
     {
-        // Create a ray from the camera through the mouse position
+        // Utwórz promieñ z kamery przez pozycjê myszy
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         Vector3 targetPoint;
 
-        // Check if the ray hits a surface
+        // SprawdŸ, czy promieñ trafia w powierzchniê
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, hitLayers))
         {
-            targetPoint = hit.point; // Get the hit point
+            targetPoint = hit.point;
         }
         else
         {
-            // If no surface is hit, shoot towards a far point along the ray
-            targetPoint = ray.GetPoint(1000f);
+            targetPoint = ray.GetPoint(1000f); // Punkt daleko w kierunku promienia
         }
 
-        // Calculate the direction from the fire point to the target point
+        // Oblicz kierunek z firePoint do celu
         Vector3 direction = (targetPoint - firePoint.position).normalized;
 
-        // Spawn the projectile at the fire point
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+        // Oblicz rotacjê pocisku
+        Quaternion projectileRotation = Quaternion.LookRotation(direction);
 
-        // Apply velocity to the projectile
+        // Utwórz pocisk z poprawn¹ rotacj¹
+        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, projectileRotation);
+
+        // Ustaw prêdkoœæ pocisku
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.velocity = direction * projectileSpeed;
-            rb.useGravity = true; // Enable gravity if needed
         }
+
+        // Usuñ pocisk po 5 sekundach
+        Destroy(projectile, 5f);
     }
 }

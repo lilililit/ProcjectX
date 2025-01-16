@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2160.1106, g: 2264.4983, b: 3287.9185, a: 1}
+  m_IndirectSpecularColor: {r: 2161.384, g: 2265.387, b: 3288.516, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -457,7 +457,7 @@ GameObject:
   m_Layer: 0
   m_Name: Waypoint1
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -707,7 +707,7 @@ GameObject:
   - component: {fileID: 709211641}
   - component: {fileID: 709211640}
   - component: {fileID: 709211639}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -814,7 +814,9 @@ GameObject:
   - component: {fileID: 772362392}
   - component: {fileID: 772362391}
   - component: {fileID: 772362390}
-  m_Layer: 0
+  - component: {fileID: 772362394}
+  - component: {fileID: 772362395}
+  m_Layer: 3
   m_Name: ai
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -907,6 +909,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &772362394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772362389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 991e6d4315cf22d4a90e058122bf2d00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypoints:
+  - {fileID: 161678216}
+  - {fileID: 2014898211}
+  - {fileID: 919837765}
+  speed: 2
+  isLooping: 0
+--- !u!114 &772362395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772362389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b30a55ccf82fee409e42c7600f129d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!1 &919837764
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,9 +950,9 @@ GameObject:
   m_Component:
   - component: {fileID: 919837765}
   m_Layer: 0
-  m_Name: Waypoint2 (1)
+  m_Name: Waypoint3
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -932,7 +965,7 @@ Transform:
   m_GameObject: {fileID: 919837764}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.75, y: 0.90891, z: -4.95}
+  m_LocalPosition: {x: 2.92, y: 0.90891, z: -10.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1055,7 +1088,7 @@ GameObject:
   - component: {fileID: 1338055146}
   - component: {fileID: 1338055145}
   - component: {fileID: 1338055144}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1173,7 +1206,7 @@ Transform:
   m_GameObject: {fileID: 1499652480}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.99, y: 0.925, z: -10.427678}
+  m_LocalPosition: {x: 1.04, y: 0.925, z: -10.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1654,7 +1687,7 @@ GameObject:
   m_Layer: 0
   m_Name: Waypoint2
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
